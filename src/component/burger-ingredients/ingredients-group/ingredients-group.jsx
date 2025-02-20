@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from './ingredients-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
+import PropTypes from 'prop-types';
+import { ingredientPropType } from '@utils/prop-types';
 
-const IngredientsGroup = (props) => {
-	console.log(props.ingredients);
+const IngredientsGroup = ({ groupName, ingredients }) => {
 	return (
 		<div className={`${styles.group__body} pt-10`}>
 			<p className={`${styles.title__left} text text_type_main-medium`}>
-				{props.groupName}
+				{groupName}
 			</p>
 			<ul className={`${styles.group__list} pt-6 pl-4 pt-4`}>
-				{props.ingredients.map((element) => (
+				{ingredients.map((element) => (
 					<li key={element._id}>
 						<IngredientItem item={element} />
 					</li>
@@ -18,6 +19,11 @@ const IngredientsGroup = (props) => {
 			</ul>
 		</div>
 	);
+};
+
+IngredientsGroup.propTypes = {
+	groupName: PropTypes.string.isRequired,
+	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };
 
 export default IngredientsGroup;

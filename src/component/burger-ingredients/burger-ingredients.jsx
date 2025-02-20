@@ -3,6 +3,8 @@ import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import '../../styles.css';
+import PropTypes from 'prop-types';
+import { ingredientPropType } from '@utils/prop-types';
 
 const BurgerIngredients = ({ listOfIngredients }) => {
 	return (
@@ -31,6 +33,11 @@ const BurgerIngredients = ({ listOfIngredients }) => {
 			</ul>
 		</section>
 	);
+};
+
+BurgerIngredients.propType = {
+	listOfIngredients: PropTypes.arrayOf(ingredientPropType.isRequired)
+		.isRequired,
 };
 
 export default BurgerIngredients;
