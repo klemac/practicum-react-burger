@@ -12,7 +12,7 @@ const BurgerIngredients = ({ listOfIngredients }) => {
 			<p className={`${styles.title__left} text text_type_main-large pt-8`}>
 				Соберите бургер
 			</p>
-			<nav style={{ display: 'flex' }} className='pt-4'>
+			<nav className={`${styles.navbar__flex} pt-4`}>
 				<Tab value='bun'>Булки</Tab>
 				<Tab value='sauce'>Соусы</Tab>
 				<Tab value='main'>Начинки</Tab>

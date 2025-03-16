@@ -5,6 +5,10 @@
 	align-items: center;
 }
 
+.navbar__flex {
+	display: flex;
+}
+
 .title__left {
 	width: 100%;
 	text-align: left;

@@ -10,7 +10,10 @@ const IngredientItem = ({ item }) => {
 	return (
 		<div className={`${styles.item__body}`}>
 			<Counter count={1} size='default' />
-			<img className={`${styles.item__image}`} src={item.image} alt=''></img>
+			<img
+				className={`${styles.item__image}`}
+				src={item.image}
+				alt={item.name}></img>
 			<div className={`${styles.item__price}`}>
 				<p className='text text_type_digits-default'>{item.price}</p>
 				<CurrencyIcon />
