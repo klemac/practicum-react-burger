@@ -6,6 +6,7 @@
 	align-items: center;
 	gap: 4px;
 	width: 250px;
+	cursor: pointer;
 }
 
 .item__image {
