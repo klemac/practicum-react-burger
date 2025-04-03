@@ -1,0 +1,16 @@
+.group__body:first-child {
+	padding-top: 0;
+}
+
+.title__left {
+	width: 100%;
+	text-align: left;
+}
+
+.group__list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 32px 24px;
+	list-style: none;
+}

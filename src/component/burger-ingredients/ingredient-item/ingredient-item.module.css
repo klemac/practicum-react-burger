@@ -1,0 +1,23 @@
+.item__body {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	width: 250px;
+	cursor: pointer;
+}
+
+.item__image {
+	max-width: 240px;
+}
+
+.item__price {
+	display: flex;
+	gap: 8px;
+}
+
+.item__name {
+	height: 48px;
+}
