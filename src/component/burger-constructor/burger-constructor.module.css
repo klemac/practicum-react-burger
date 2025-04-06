@@ -14,17 +14,14 @@
 	list-style: none;
 	scrollbar-color: #8585ad #2f2f37;
 	scrollbar-width: thin;
+	margin: 16px 0 16px 0;
 }
 
-.order__element {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
 
 .startend__element {
 	margin: 0 16px 0 32px;
 }
+
 
 .order__submit {
 	display: flex;
@@ -39,4 +36,57 @@
 	display: flex;
 	align-items: center;
 	gap: 8px;
+}
+
+.emptyburger__top {
+    background-color: #1C1C21;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+	margin: 0 32px 0 32px;
+	padding: 28px 10px;
+}
+
+.emptyburger__bottom {
+    background-color: #1C1C21;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+	margin: 0 32px 0 32px;
+	padding: 28px 10px;
+}
+
+.empty__order {
+    background-color: #1C1C21;
+	border-radius: 20px;
+	margin: 10px 32px 10px 32px;
+	height: calc(100vh - 492px);
+	padding: 50px 10px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.drop__bun {
+	opacity: 0.6;
+	border: 2px solid #8585AD;
+}
+
+.over__bun {
+	opacity: 0.6;
+	border: 2px dashed #8585AD;
+}
+
+.drop__ingredient {
+	opacity: 0.6;
+	border: 2px solid #8585AD;
+}
+
+.over__ingredient {
+	opacity: 0.6;
+	border: 2px dashed #8585AD;
 }

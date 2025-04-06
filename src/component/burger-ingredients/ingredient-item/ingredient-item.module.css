@@ -21,3 +21,7 @@
 .item__name {
 	height: 48px;
 }
+
+.item__drag {
+	opacity: 0.5;
+}

@@ -18,3 +18,10 @@
 		height: auto;
 	}
 }
+
+.whole__screen {
+	height: calc(100vh - 88px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
