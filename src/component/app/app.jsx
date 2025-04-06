@@ -34,8 +34,8 @@ export const App = () => {
 				) : (
 					data.length > 0 && (
 						<main className={`${styles.main__block} pl-5 pr-5`}>
-							<BurgerIngredients listOfIngredients={data} />
-							<BurgerConstructor constructorIngredients={data} />
+							<BurgerIngredients />
+							<BurgerConstructor />
 						</main>
 					)
 				)}
