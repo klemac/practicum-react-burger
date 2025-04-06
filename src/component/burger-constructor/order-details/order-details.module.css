@@ -8,3 +8,17 @@
 	width: 5em;
 	height: 5em;
 }
+
+.order__request {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5rem;
+}
+
+.order__error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5rem;
+}

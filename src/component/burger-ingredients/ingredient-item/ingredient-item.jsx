@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrag } from 'react-dnd';
 import styles from './ingredient-item.module.css';
 import {
 	CurrencyIcon,
@@ -7,30 +9,57 @@ import {
 import { ingredientPropType } from '@utils/prop-types';
 import { Modal } from '../../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
+import {
+	CLEAR_INGREDIENT_DETAILS,
+	SET_INGREDIENT_DETAILS,
+} from '../../../services/actions/ingredient-details';
 
 const IngredientItem = ({ item }) => {
-	const [openedModal, setOpenedModal] = React.useState(false);
+	const dispatch = useDispatch();
+	const { ingredient } = useSelector((store) => store.ingredientDetails);
+	const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
 
-	const handleOpenModal = () => {
-		setOpenedModal(true);
-	};
+	const ingredientCount = useMemo(() => {
+		if (item.type === 'bun') {
+			return bun?._id === item._id ? 2 : 0;
+		} else {
+			return ingredients.filter((elem) => elem._id === item._id).length;
+		}
+	}, [bun, ingredients]);
+
+	const handleOpenModal = useCallback(
+		(item) => {
+			dispatch({ type: SET_INGREDIENT_DETAILS, ingredient: item });
+		},
+		[dispatch]
+	);
 
 	const handleCloseModal = () => {
-		setOpenedModal(false);
+		dispatch({ type: CLEAR_INGREDIENT_DETAILS });
 	};
+
+	const [{ isDragging }, drag] = useDrag(() => ({
+		type: 'ItemDragDrop',
+		item: item,
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+			handlerId: monitor.getHandlerId(),
+		}),
+	}));
 
 	return (
 		<>
-			{openedModal && (
+			{ingredient && (
 				<Modal header={'Детали ингредиента'} onClose={handleCloseModal}>
 					<IngredientDetails ingredient={item} />
 				</Modal>
 			)}
 			<div
-				className={`${styles.item__body}`}
-				onClick={handleOpenModal}
-				aria-hidden='true'>
-				<Counter count={1} size='default' />
+				className={`${styles.item__body} ${isDragging && styles.item__drag}`}
+				onClick={() => handleOpenModal(item)}
+				aria-hidden='true'
+				ref={drag}>
+				<Counter count={ingredientCount} size='default' />
 				<img
 					className={`${styles.item__image}`}
 					src={item.image}

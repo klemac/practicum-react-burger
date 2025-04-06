@@ -9,17 +9,12 @@
 	flex-direction: column;
 	gap: 16px;
 	height: calc(100vh - 492px);
+	margin: 16px 0;
 	padding: 0;
 	overflow-y: scroll;
 	list-style: none;
 	scrollbar-color: #8585ad #2f2f37;
 	scrollbar-width: thin;
-}
-
-.order__element {
-	display: flex;
-	align-items: center;
-	gap: 8px;
 }
 
 .startend__element {
@@ -39,4 +34,51 @@
 	display: flex;
 	align-items: center;
 	gap: 8px;
+}
+
+.emptyburger__top {
+	margin: 0 32px;
+	padding: 28px 10px;
+	background-color: #1c1c21;
+	border-radius: 50px 50px 20px 20px;
+}
+
+.emptyburger__bottom {
+	margin: 0 32px;
+	padding: 28px 10px;
+	background-color: #1c1c21;
+	border-radius: 20px 20px 50px 50px;
+}
+
+.empty__order {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: calc(100vh - 492px);
+	margin: 10px 32px;
+	padding: 50px 10px;
+	text-align: center;
+	background-color: #1c1c21;
+	border-radius: 20px;
+}
+
+.drop__bun {
+	border: 2px solid #8585ad;
+	opacity: 0.6;
+}
+
+.over__bun {
+	border: 2px dashed #8585ad;
+	opacity: 0.6;
+}
+
+.drop__ingredient {
+	border: 2px solid #8585ad;
+	opacity: 0.6;
+}
+
+.over__ingredient {
+	border: 2px dashed #8585ad;
+	opacity: 0.6;
 }
