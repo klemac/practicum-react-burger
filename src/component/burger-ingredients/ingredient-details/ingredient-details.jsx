@@ -1,11 +1,25 @@
-import React from 'react';
+import { React, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const IngredientDetails = () => {
-	const { ingredient } = useSelector((state) => state.ingredientDetails);
-	return (
+	const { ingredientId } = useParams();
+	const ingredients = useSelector((state) => state.ingredients.data);
+	const ingredient = useMemo(
+		() => ingredients.find((item) => item._id === ingredientId),
+		[ingredientId, ingredients]
+	);
+	console.log(ingredient);
+	const { state } = useLocation();
+
+	return ingredient ? (
 		<div className={`${styles.details__body}`}>
+			{!state?.background && (
+				<p className={`${styles.header__text} text text_type_main-large`}>
+					Детали ингредиента
+				</p>
+			)}
 			<img
 				className={`${styles.details__image}`}
 				src={ingredient.image_large}
@@ -49,5 +63,9 @@ export const IngredientDetails = () => {
 				</li>
 			</ul>
 		</div>
+	) : (
+		<p className={`${styles.details__error} text text_type_main-default`}>
+			Данные об ингрединте не найдены
+		</p>
 	);
 };

@@ -6,7 +6,6 @@ import '../../styles.css';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 
 const BurgerIngredients = () => {
-	//const dispatch = useDispatch();
 	const { data } = useSelector((store) => store.ingredients);
 	const [activeTab, setActiveTab] = useState('buns');
 

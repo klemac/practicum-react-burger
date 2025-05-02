@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import styles from './ingredient-item.module.css';
 import {
@@ -7,17 +7,12 @@ import {
 	Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '@utils/prop-types';
-import { Modal } from '../../modal/modal';
-import { IngredientDetails } from '../ingredient-details/ingredient-details';
-import {
-	CLEAR_INGREDIENT_DETAILS,
-	SET_INGREDIENT_DETAILS,
-} from '../../../services/actions/ingredient-details';
+import { useLocation, Link } from 'react-router-dom';
 
 const IngredientItem = ({ item }) => {
-	const dispatch = useDispatch();
-	const { ingredient } = useSelector((store) => store.ingredientDetails);
 	const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
+
+	const location = useLocation();
 
 	const ingredientCount = useMemo(() => {
 		if (item.type === 'bun') {
@@ -26,17 +21,6 @@ const IngredientItem = ({ item }) => {
 			return ingredients.filter((elem) => elem._id === item._id).length;
 		}
 	}, [bun, ingredients]);
-
-	const handleOpenModal = useCallback(
-		(item) => {
-			dispatch({ type: SET_INGREDIENT_DETAILS, ingredient: item });
-		},
-		[dispatch]
-	);
-
-	const handleCloseModal = () => {
-		dispatch({ type: CLEAR_INGREDIENT_DETAILS });
-	};
 
 	const [{ isDragging }, drag] = useDrag(() => ({
 		type: 'ItemDragDrop',
@@ -48,15 +32,13 @@ const IngredientItem = ({ item }) => {
 	}));
 
 	return (
-		<>
-			{ingredient && (
-				<Modal header={'Детали ингредиента'} onClose={handleCloseModal}>
-					<IngredientDetails ingredient={item} />
-				</Modal>
-			)}
+		<Link
+			key={item._id}
+			to={`/ingredients/${item._id}`}
+			state={{ background: location }}
+			className={styles.item__link}>
 			<div
 				className={`${styles.item__body} ${isDragging && styles.item__drag}`}
-				onClick={() => handleOpenModal(item)}
 				aria-hidden='true'
 				ref={drag}>
 				<Counter count={ingredientCount} size='default' />
@@ -72,7 +54,7 @@ const IngredientItem = ({ item }) => {
 					{item.name}
 				</p>
 			</div>
-		</>
+		</Link>
 	);
 };
 

@@ -15,6 +15,7 @@ import {
 	CLEAR_ITEMS,
 	addItem,
 } from '../../services/actions/burger-constructor';
+import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor = () => {
 	const dispatch = useDispatch();
@@ -22,6 +23,10 @@ const BurgerConstructor = () => {
 	const { order, orderRequest, orderError } = useSelector(
 		(store) => store.order
 	);
+	const { user } = useSelector((store) => store.user);
+
+	const navigate = useNavigate();
+	const navigateToLogin = () => navigate('/login');
 
 	const handleCloseModal = () => {
 		dispatch({ type: CLEAR_ORDER });
@@ -41,7 +46,7 @@ const BurgerConstructor = () => {
 	}, [bun, ingredients]);
 
 	const placeAnOrder = () => {
-		dispatch(createOrder(bun, ingredients));
+		user ? dispatch(createOrder(bun, ingredients)) : navigateToLogin();
 	};
 
 	console.log(bun);
