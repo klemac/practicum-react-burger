@@ -50,7 +50,9 @@ const AppHeader = () => {
 						)}
 					</NavLink>
 				</ul>
-				<Logo />
+				<NavLink to='/'>
+					<Logo />
+				</NavLink>
 				<ul className={styles.menu__list}>
 					<NavLink
 						to='/profile'

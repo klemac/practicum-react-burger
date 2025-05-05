@@ -20,28 +20,40 @@ export const setUser = (user) => ({
 
 export const getUser = () => {
 	return (dispatch) => {
-		return getUserRequest().then((res) => {
-			dispatch(setUser(res.user));
-		});
+		return getUserRequest()
+			.then((res) => {
+				dispatch(setUser(res.user));
+			})
+			.catch((error) => {
+				console.error('Ошибка при получении пользователя:', error);
+			});
 	};
 };
 
 export const updateUser = (data) => {
 	return (dispatch) => {
-		return updateUserRequest(data).then((res) => {
-			dispatch(setUser(res.user));
-		});
+		return updateUserRequest(data)
+			.then((res) => {
+				dispatch(setUser(res.user));
+			})
+			.catch((error) => {
+				console.error('Ошибка при обновлении пользователя:', error);
+			});
 	};
 };
 
 export const login = (data) => {
 	return (dispatch) => {
-		return loginRequest(data).then((res) => {
-			localStorage.setItem('accessToken', res.accessToken);
-			localStorage.setItem('refreshToken', res.refreshToken);
-			dispatch(setUser(res.user));
-			dispatch(setAuthChecked(true));
-		});
+		return loginRequest(data)
+			.then((res) => {
+				localStorage.setItem('accessToken', res.accessToken);
+				localStorage.setItem('refreshToken', res.refreshToken);
+				dispatch(setUser(res.user));
+				dispatch(setAuthChecked(true));
+			})
+			.catch((error) => {
+				console.error('Ошибка при входе пользователя:', error);
+			});
 	};
 };
 
@@ -63,10 +75,14 @@ export const checkUserAuth = () => {
 
 export const logout = () => {
 	return (dispatch) => {
-		return logoutRequest().then(() => {
-			localStorage.removeItem('accessToken');
-			localStorage.removeItem('refreshToken');
-			dispatch(setUser(null));
-		});
+		return logoutRequest()
+			.then(() => {
+				localStorage.removeItem('accessToken');
+				localStorage.removeItem('refreshToken');
+				dispatch(setUser(null));
+			})
+			.catch((error) => {
+				console.error('Ошибка при выходе пользователя:', error);
+			});
 	};
 };
