@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './component/app/app';
+import App from './component/app/app';
 import './styles.css';
 
 import {
@@ -11,6 +11,7 @@ import {
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers/reducers';
 import { thunk } from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
 const composeEnhancers =
 	typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -25,8 +26,10 @@ const domNode = document.getElementById('root');
 const root = createRoot(domNode);
 root.render(
 	<StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
+		<BrowserRouter>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</BrowserRouter>
 	</StrictMode>
 );

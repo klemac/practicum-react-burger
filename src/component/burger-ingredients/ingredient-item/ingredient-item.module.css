@@ -25,3 +25,8 @@
 .item__drag {
 	opacity: 0.5;
 }
+
+.item__link {
+	color: white;
+	text-decoration: none;
+}

@@ -1,0 +1,22 @@
+.profile__container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 30px;
+	width: 1240px;
+}
+
+.profile__body {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.profile__nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 30px;
+	padding-top: 30px;
+}
