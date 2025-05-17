@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const OrderDetails = () => {
+export const OrderDetails = (): JSX.Element => {
 	const { order, orderRequest, orderError } = useSelector(
-		(store) => store.order
+		(store: any) => store.order
 	);
 
 	return (
@@ -23,7 +23,10 @@ export const OrderDetails = () => {
 					<p className='text text_type_main-medium pt-8'>
 						идентификатор заказа
 					</p>
-					<CheckMarkIcon className={`${styles.details__icon} pt-15`} />
+					<CheckMarkIcon
+						className={`${styles.details__icon} pt-15`}
+						type='primary'
+					/>
 					<p className='text text_type_main-default pt-15'>
 						Ваш заказ начали готовить
 					</p>

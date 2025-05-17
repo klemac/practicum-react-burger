@@ -14,8 +14,9 @@ import { thunk } from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 
 const composeEnhancers =
-	typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+	typeof window === 'object' &&
+	(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+		? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
 		: compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
@@ -23,7 +24,7 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
 
 const domNode = document.getElementById('root');
-const root = createRoot(domNode);
+const root = createRoot(domNode!);
 root.render(
 	<StrictMode>
 		<BrowserRouter>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 import {
@@ -7,17 +7,18 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { passwordForgot } from '../../utils/api';
 import { useForm } from '../../utils/useForm';
+import { TUserPasswordReset } from '../../utils/types';
 
-export const ForgotPassword = () => {
-	const [formData, onChange] = useForm({ email: '' });
-	const [isErrorRequest, setIsErrorRequest] = useState(null);
+export const ForgotPassword = (): JSX.Element => {
+	const [formData, onChange] = useForm<TUserPasswordReset>({ email: '' });
+	const [isErrorRequest, setIsErrorRequest] = useState<boolean | null>(null);
 	const navigate = useNavigate();
 
-	const formSubmit = (e) => {
+	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		passwordForgot(formData)
 			.then(() => {
-				localStorage.setItem('resetPassword', true);
+				localStorage.setItem('resetPassword', 'true');
 				navigate('/reset-password');
 			})
 			.catch((error) => setIsErrorRequest(error?.message));

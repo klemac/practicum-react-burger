@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './reset-password.module.css';
 import {
@@ -7,20 +7,24 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { passwordReset } from '../../utils/api';
 import { useForm } from '../../utils/useForm';
+import { TUserPasswordResetCode } from '../../utils/types';
 
-export const ResetPassword = () => {
-	const [formData, onChange] = useForm({ code: '', password: '' });
-	const [isErrorRequest, setErrorRequest] = useState(null);
-	const [isHidden, setHidden] = useState(true);
-	const inputRef = useRef(null);
+export const ResetPassword = (): JSX.Element => {
+	const [formData, onChange] = useForm<TUserPasswordResetCode>({
+		code: '',
+		password: '',
+	});
+	const [isErrorRequest, setErrorRequest] = useState<boolean | null>(null);
+	const [isHidden, setHidden] = useState<boolean>(true);
+	const inputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
 
 	const handlePasswordIcon = () => {
 		setHidden(!isHidden);
-		inputRef.current.focus();
+		inputRef.current?.focus();
 	};
 
-	const formSubmit = (e) => {
+	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		passwordReset(formData)
 			.then(() => {

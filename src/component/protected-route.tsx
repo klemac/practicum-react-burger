@@ -1,10 +1,17 @@
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-export const ProtectedRoute = ({ onlyPublic = false, component }) => {
-	const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-	const user = useSelector((store) => store.user.user);
+type TProtectedRouteProps = {
+	onlyPublic?: boolean;
+	component: React.ReactNode;
+};
+
+export const ProtectedRoute = ({
+	onlyPublic = false,
+	component,
+}: TProtectedRouteProps): React.ReactNode => {
+	const isAuthChecked = useSelector((store: any) => store.user.isAuthChecked);
+	const user = useSelector((store: any) => store.user.user);
 	const location = useLocation();
 
 	if (!isAuthChecked) {
@@ -22,14 +29,9 @@ export const ProtectedRoute = ({ onlyPublic = false, component }) => {
 	return component;
 };
 
-export const PrivateRoute = ({ component }) => (
+export const PrivateRoute = ({ component }: TProtectedRouteProps) => (
 	<ProtectedRoute component={component} />
 );
-export const PublicRoute = ({ component }) => (
+export const PublicRoute = ({ component }: TProtectedRouteProps) => (
 	<ProtectedRoute onlyPublic={true} component={component} />
 );
-
-ProtectedRoute.propTypes = {
-	component: PropTypes.element.isRequired,
-	onlyUnAuth: PropTypes.bool,
-};

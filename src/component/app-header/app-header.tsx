@@ -9,10 +9,12 @@ import {
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const AppHeader = () => {
-	const user = useSelector((store) => store.user.user);
-	const getButtonColor = (isActive) => (isActive ? 'primary' : 'secondary');
-	const getTextColor = (isActive) => (isActive ? null : 'text_color_inactive');
+const AppHeader = (): JSX.Element => {
+	const user = useSelector((store: any) => store.user.user);
+	const getButtonColor = (isActive: boolean) =>
+		isActive ? 'primary' : 'secondary';
+	const getTextColor = (isActive: boolean) =>
+		isActive ? null : 'text_color_inactive';
 	return (
 		<header className={styles.header}>
 			<nav className={styles.navbar}>
@@ -20,7 +22,9 @@ const AppHeader = () => {
 					<NavLink
 						to='/'
 						end
-						style={({ isActive }) => (isActive ? { color: '#f2f2f3' } : null)}>
+						style={({ isActive }) =>
+							isActive ? { color: '#f2f2f3' } : undefined
+						}>
 						{({ isActive }) => (
 							<div className={`${styles.menu__item} pt-4 pb-4 pl-5 pr-5`}>
 								<BurgerIcon type={getButtonColor(isActive)} />
@@ -36,7 +40,9 @@ const AppHeader = () => {
 					<NavLink
 						to='/feed'
 						end
-						style={({ isActive }) => (isActive ? { color: '#f2f2f3' } : null)}>
+						style={({ isActive }) =>
+							isActive ? { color: '#f2f2f3' } : undefined
+						}>
 						{({ isActive }) => (
 							<div className={`${styles.menu__item} pt-4 pb-4 pl-5 pr-5`}>
 								<ListIcon type={getButtonColor(isActive)} />
@@ -57,7 +63,9 @@ const AppHeader = () => {
 					<NavLink
 						to='/profile'
 						end
-						style={({ isActive }) => (isActive ? { color: '#f2f2f3' } : null)}>
+						style={({ isActive }) =>
+							isActive ? { color: '#f2f2f3' } : undefined
+						}>
 						{({ isActive }) => (
 							<div className={`${styles.menu__item} pt-4 pb-4 pl-5 pr-5`}>
 								<ProfileIcon type={getButtonColor(isActive)} />

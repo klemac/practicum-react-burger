@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 import { useDispatch } from 'react-redux';
@@ -8,22 +8,26 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login } from '../../services/actions/user';
 import { useForm } from '../../utils/useForm';
+import { TUserLogin } from '../../utils/types';
 
-export const Login = () => {
+export const Login = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const [formData, onChange] = useForm({ email: '', password: '' });
+	const [formData, onChange] = useForm<TUserLogin>({
+		email: '',
+		password: '',
+	});
 
-	const [isHidden, setHidden] = useState(true);
-	const inputRef = useRef(null);
+	const [isHidden, setHidden] = useState<boolean>(true);
+	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const handlePasswordIcon = () => {
 		setHidden(!isHidden);
-		inputRef.current.focus();
+		inputRef.current?.focus();
 	};
 
-	const formSubmit = (e) => {
+	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(login(formData));
+		dispatch(login(formData) as any);
 	};
 
 	return (

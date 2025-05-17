@@ -1,16 +1,16 @@
-import { React, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
 import { useLocation, useParams } from 'react-router-dom';
 
-export const IngredientDetails = () => {
+export const IngredientDetails = (): JSX.Element => {
 	const { ingredientId } = useParams();
-	const ingredients = useSelector((state) => state.ingredients.data);
+	const ingredients = useSelector((state: any) => state.ingredients.data);
 	const ingredient = useMemo(
-		() => ingredients.find((item) => item._id === ingredientId),
+		() => ingredients.find((item: any) => item._id === ingredientId),
 		[ingredientId, ingredients]
 	);
-	console.log(ingredient);
+
 	const { state } = useLocation();
 
 	return ingredient ? (

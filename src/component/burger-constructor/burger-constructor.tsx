@@ -16,14 +16,20 @@ import {
 	addItem,
 } from '../../services/actions/burger-constructor';
 import { useNavigate } from 'react-router-dom';
+import {
+	TDropCollectedIngredientProps,
+	TIngredientItemType,
+} from '../../utils/types';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
-	const { order, orderRequest, orderError } = useSelector(
-		(store) => store.order
+	const { bun, ingredients } = useSelector(
+		(store: any) => store.burgerConstructor
 	);
-	const { user } = useSelector((store) => store.user);
+	const { order, orderRequest, orderError } = useSelector(
+		(store: any) => store.order
+	);
+	const { user } = useSelector((store: any) => store.user);
 
 	const navigate = useNavigate();
 	const navigateToLogin = () => navigate('/login');
@@ -37,7 +43,8 @@ const BurgerConstructor = () => {
 		const price = bun ? bun.price * 2 : 0;
 		if (ingredients?.length > 0) {
 			return ingredients.reduce(
-				(acc, ingredient) => acc + ingredient.price,
+				(acc: number, ingredient: TIngredientItemType) =>
+					acc + ingredient.price,
 				price
 			);
 		} else {
@@ -46,24 +53,27 @@ const BurgerConstructor = () => {
 	}, [bun, ingredients]);
 
 	const placeAnOrder = () => {
-		user ? dispatch(createOrder(bun, ingredients)) : navigateToLogin();
+		user ? dispatch(createOrder(bun, ingredients) as any) : navigateToLogin();
 	};
 
 	console.log(bun);
 
 	const [{ canDropIngredient, canDropBun, isOverIngredient, isOverBun }, drop] =
-		useDrop(() => ({
-			accept: 'ItemDragDrop',
-			drop: (item) => dispatch(addItem(item)),
-			collect: (monitor) => ({
-				canDropIngredient:
-					monitor.getItem()?.type !== 'bun' && monitor.canDrop(),
-				canDropBun: monitor.getItem()?.type === 'bun' && monitor.canDrop(),
+		useDrop<TIngredientItemType, unknown, TDropCollectedIngredientProps>(
+			() => ({
+				accept: 'ItemDragDrop',
+				drop: (item) => dispatch(addItem(item) as any),
+				collect: (monitor) => ({
+					canDropIngredient:
+						monitor.getItem()?.type !== 'bun' && monitor.canDrop(),
+					canDropBun: monitor.getItem()?.type === 'bun' && monitor.canDrop(),
 
-				isOverIngredient: monitor.getItem()?.type !== 'bun' && monitor.isOver(),
-				isOverBun: monitor.getItem()?.type === 'bun' && monitor.isOver(),
-			}),
-		}));
+					isOverIngredient:
+						monitor.getItem()?.type !== 'bun' && monitor.isOver(),
+					isOverBun: monitor.getItem()?.type === 'bun' && monitor.isOver(),
+				}),
+			})
+		);
 
 	return (
 		<>
@@ -94,11 +104,11 @@ const BurgerConstructor = () => {
 				)}
 				{ingredients.length > 0 ? (
 					<ul className={`${styles.order__list} custom__scrollbar`}>
-						{ingredients.map((element, index) => (
+						{ingredients.map((element: TIngredientItemType, index: string) => (
 							<ConstructorItem
 								element={element}
 								key={element.key}
-								id={element.key}
+								id={element.key ?? ''}
 								index={index}
 							/>
 						))}
@@ -135,7 +145,7 @@ const BurgerConstructor = () => {
 				<div className={`${styles.order__submit} pt-10`}>
 					<div className={`${styles.item__price}`}>
 						<p className='text text_type_digits-medium'>{price}</p>
-						<CurrencyIcon />
+						<CurrencyIcon type='primary' />
 					</div>
 					<Button
 						htmlType='button'
