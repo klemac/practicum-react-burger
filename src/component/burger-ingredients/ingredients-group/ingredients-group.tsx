@@ -1,10 +1,17 @@
 import React from 'react';
 import styles from './ingredients-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
-import PropTypes from 'prop-types';
-import { ingredientPropType } from '@utils/prop-types';
+import { TIngredientItemType } from '../../../utils/types';
 
-const IngredientsGroup = ({ groupName, ingredients }) => {
+type TIngredientsGroupProps = {
+	groupName?: string;
+	ingredients: Array<TIngredientItemType>;
+};
+
+const IngredientsGroup = ({
+	groupName,
+	ingredients,
+}: TIngredientsGroupProps): JSX.Element => {
 	return (
 		<div className={`${styles.group__body} pt-10`}>
 			<p className={`${styles.title__left} text text_type_main-medium`}>
@@ -19,11 +26,6 @@ const IngredientsGroup = ({ groupName, ingredients }) => {
 			</ul>
 		</div>
 	);
-};
-
-IngredientsGroup.propTypes = {
-	groupName: PropTypes.string.isRequired,
-	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };
 
 export default IngredientsGroup;

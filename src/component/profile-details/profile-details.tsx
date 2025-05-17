@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, FormEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './profile-details.module.css';
 import {
@@ -7,31 +7,32 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateUser } from '../../services/actions/user';
 import { useForm } from '../../utils/useForm';
+import { TUser } from '../../utils/types';
 
-export const ProfileDetails = () => {
+export const ProfileDetails = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.user.user);
-	const [initialForm, setInitialForm] = useState(user);
-	const [formData, onChange] = useForm(initialForm);
-	const [isHidden, setHidden] = useState(true);
+	const user = useSelector((state: any) => state.user.user);
+	const [initialForm, setInitialForm] = useState<TUser>(user);
+	const [formData, onChange] = useForm<TUser>(initialForm);
+	const [isHidden, setHidden] = useState<boolean>(true);
 
 	const handlePasswordIcon = () => {
 		setHidden(!isHidden);
-		inputRef.current.focus();
+		inputRef.current?.focus();
 	};
 
-	const formSubmit = (e) => {
+	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(updateUser(formData));
+		dispatch(updateUser(formData) as any);
 	};
 
-	const inputRef = useRef(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handleCancelChange = () => {
 		setInitialForm(user);
 	};
 
-	useEffect(() => {
+	useEffect((): void => {
 		if (user) {
 			setInitialForm(user);
 		}

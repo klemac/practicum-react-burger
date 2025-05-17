@@ -10,18 +10,26 @@ import {
 	deleteItem,
 	moveItem,
 } from '../../../services/actions/burger-constructor';
-import { ingredientPropType } from '@utils/prop-types';
-import PropTypes from 'prop-types';
+import {
+	TConstructorItem,
+	TDragCollectedProps,
+	TDragObject,
+	TDropCollectedProps,
+} from '../../../utils/types';
 
-const ConstructorItem = ({ element, id, index }) => {
+const ConstructorItem = ({
+	element,
+	id,
+	index,
+}: TConstructorItem): JSX.Element => {
 	const dispatch = useDispatch();
-	const itemRef = useRef(null);
+	const itemRef = useRef<HTMLLIElement>(null);
 
-	const deleteElement = (item) => {
-		dispatch(deleteItem(item));
-	};
-
-	const [{ handlerId }, drop] = useDrop({
+	const [{ handlerId }, drop] = useDrop<
+		TDragObject,
+		unknown,
+		TDropCollectedProps
+	>({
 		accept: 'ItemSwap',
 		collect(monitor) {
 			return {
@@ -41,6 +49,9 @@ const ConstructorItem = ({ element, id, index }) => {
 			const hoverMiddleY =
 				(hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 			const clientOffset = monitor.getClientOffset();
+			if (!clientOffset) {
+				return;
+			}
 			const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 			if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
 				return;
@@ -54,7 +65,11 @@ const ConstructorItem = ({ element, id, index }) => {
 		},
 	});
 
-	const [{ isDragging }, drag] = useDrag({
+	const [{ isDragging }, drag] = useDrag<
+		TDragObject,
+		unknown,
+		TDragCollectedProps
+	>({
 		type: 'ItemSwap',
 		item: () => {
 			return { id, index };
@@ -74,21 +89,15 @@ const ConstructorItem = ({ element, id, index }) => {
 			}`}
 			ref={itemRef}
 			data-handler-id={handlerId}>
-			<DragIcon />
+			<DragIcon type='primary' />
 			<ConstructorElement
 				text={element.name}
 				thumbnail={element.image}
 				price={element.price}
-				handleClose={() => deleteElement(element)}
+				handleClose={() => deleteItem(element)}
 			/>
 		</li>
 	);
-};
-
-ConstructorItem.propTypes = {
-	element: ingredientPropType.isRequired,
-	id: PropTypes.string.isRequired,
-	index: PropTypes.number.isRequired,
 };
 
 export default ConstructorItem;

@@ -4,15 +4,16 @@ import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import '../../styles.css';
 import IngredientsGroup from './ingredients-group/ingredients-group';
+import { TIngredientItemType } from '../../utils/types';
 
-const BurgerIngredients = () => {
-	const { data } = useSelector((store) => store.ingredients);
-	const [activeTab, setActiveTab] = useState('buns');
+const BurgerIngredients = (): JSX.Element => {
+	const { data } = useSelector((store: any) => store.ingredients);
+	const [activeTab, setActiveTab] = useState<string>('buns');
 
-	const containerRef = useRef(null);
-	const bunsRef = useRef(null);
-	const saucesRef = useRef(null);
-	const mainsRef = useRef(null);
+	const containerRef = useRef<HTMLUListElement | null>(null);
+	const bunsRef = useRef<HTMLLIElement | null>(null);
+	const saucesRef = useRef<HTMLLIElement | null>(null);
+	const mainsRef = useRef<HTMLLIElement | null>(null);
 
 	const handleTabs = () => {
 		const containerCoords =
@@ -21,9 +22,9 @@ const BurgerIngredients = () => {
 		const saucesCoords = saucesRef.current?.getBoundingClientRect().top || 0;
 		const mainsCoords = mainsRef.current?.getBoundingClientRect().top || 0;
 
-		let bunsMargin = Math.abs(containerCoords - bunsCoords);
-		let saucesMargin = Math.abs(containerCoords - saucesCoords);
-		let mainsMargin = Math.abs(containerCoords - mainsCoords);
+		const bunsMargin = Math.abs(containerCoords - bunsCoords);
+		const saucesMargin = Math.abs(containerCoords - saucesCoords);
+		const mainsMargin = Math.abs(containerCoords - mainsCoords);
 
 		if (bunsMargin < saucesMargin && bunsMargin < mainsMargin) {
 			setActiveTab('buns');
@@ -66,19 +67,25 @@ const BurgerIngredients = () => {
 				<li ref={bunsRef}>
 					<IngredientsGroup
 						groupName={'Булки'}
-						ingredients={data.filter((el) => el.type === 'bun')}
+						ingredients={data.filter(
+							(el: TIngredientItemType) => el.type === 'bun'
+						)}
 					/>
 				</li>
 				<li ref={saucesRef}>
 					<IngredientsGroup
 						groupName={'Соусы'}
-						ingredients={data.filter((el) => el.type === 'sauce')}
+						ingredients={data.filter(
+							(el: TIngredientItemType) => el.type === 'sauce'
+						)}
 					/>
 				</li>
 				<li ref={mainsRef}>
 					<IngredientsGroup
 						groupName={'Начинки'}
-						ingredients={data.filter((el) => el.type === 'main')}
+						ingredients={data.filter(
+							(el: TIngredientItemType) => el.type === 'main'
+						)}
 					/>
 				</li>
 			</ul>

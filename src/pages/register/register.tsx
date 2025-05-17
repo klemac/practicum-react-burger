@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './register.module.css';
 import {
@@ -7,18 +7,23 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../../utils/api';
 import { useForm } from '../../utils/useForm';
+import { TUserRegister } from '../../utils/types';
 
-export const Register = () => {
-	const [formData, onChange] = useForm({ name: '', email: '', password: '' });
-	const [isHidden, setHidden] = useState(true);
-	const inputRef = useRef(null);
+export const Register = (): JSX.Element => {
+	const [formData, onChange] = useForm<TUserRegister>({
+		name: '',
+		email: '',
+		password: '',
+	});
+	const [isHidden, setHidden] = useState<boolean>(true);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handlePasswordIcon = () => {
 		setHidden(!isHidden);
-		inputRef.current.focus();
+		inputRef.current?.focus();
 	};
 
-	const formSubmit = (e) => {
+	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		register(formData);
 	};
