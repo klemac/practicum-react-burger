@@ -6,11 +6,15 @@ import {
 	CurrencyIcon,
 	Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientPropType } from '@utils/prop-types';
 import { useLocation, Link } from 'react-router-dom';
+import { TIngredientItemType } from '../../../utils/types';
 
-const IngredientItem = ({ item }) => {
-	const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
+type TIngredientItemProps = { item: TIngredientItemType };
+
+const IngredientItem = ({ item }: TIngredientItemProps): JSX.Element => {
+	const { bun, ingredients } = useSelector(
+		(store: any) => store.burgerConstructor
+	);
 
 	const location = useLocation();
 
@@ -18,7 +22,9 @@ const IngredientItem = ({ item }) => {
 		if (item.type === 'bun') {
 			return bun?._id === item._id ? 2 : 0;
 		} else {
-			return ingredients.filter((elem) => elem._id === item._id).length;
+			return ingredients.filter(
+				(element: TIngredientItemType) => element._id === item._id
+			).length;
 		}
 	}, [bun, ingredients]);
 
@@ -48,7 +54,7 @@ const IngredientItem = ({ item }) => {
 					alt={item.name}></img>
 				<div className={`${styles.item__price}`}>
 					<p className='text text_type_digits-default'>{item.price}</p>
-					<CurrencyIcon />
+					<CurrencyIcon type='primary' />
 				</div>
 				<p className={`${styles.item__name} text text_type_main-small`}>
 					{item.name}
@@ -56,10 +62,6 @@ const IngredientItem = ({ item }) => {
 			</div>
 		</Link>
 	);
-};
-
-IngredientItem.propTypes = {
-	item: ingredientPropType.isRequired,
 };
 
 export default IngredientItem;

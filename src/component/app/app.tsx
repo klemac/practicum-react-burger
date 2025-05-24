@@ -18,10 +18,10 @@ import { ProfileDetails } from '../profile-details/profile-details';
 import { Orders } from '../orders/orders';
 import { IngredientDetails } from '../burger-ingredients/ingredient-details/ingredient-details';
 
-const App = () => {
+const App = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const { data, dataRequest, dataError } = useSelector(
-		(state) => state.ingredients
+		(state: any) => state.ingredients
 	);
 
 	const location = useLocation();
@@ -33,11 +33,11 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		dispatch(getIngredients());
+		dispatch(getIngredients() as any);
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(checkUserAuth());
+		dispatch(checkUserAuth() as any);
 	}, []);
 
 	return (
