@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrop } from 'react-dnd';
 import styles from './burger-constructor.module.css';
 import {
@@ -53,7 +53,9 @@ const BurgerConstructor = (): JSX.Element => {
 	}, [bun, ingredients]);
 
 	const placeAnOrder = () => {
-		user ? dispatch(createOrder(bun, ingredients) as any) : navigateToLogin();
+		user
+			? dispatch(createOrder({ bun, ingredients }) as any)
+			: navigateToLogin();
 	};
 
 	console.log(bun);

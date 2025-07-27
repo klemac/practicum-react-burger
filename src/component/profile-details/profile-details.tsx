@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, FormEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import styles from './profile-details.module.css';
 import {
 	Button,

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../services/hooks';
 import { useDrag } from 'react-dnd';
 import styles from './ingredient-item.module.css';
 import {

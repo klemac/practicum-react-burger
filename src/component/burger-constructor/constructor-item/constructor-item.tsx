@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../../services/hooks';
 import { useDrop, useDrag } from 'react-dnd';
 import {
 	ConstructorElement,
@@ -59,7 +59,7 @@ const ConstructorItem = ({
 			if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
 				return;
 			}
-			dispatch(moveItem(dragIndex, hoverIndex));
+			dispatch(moveItem(Number(dragIndex), Number(hoverIndex)) as any);
 
 			item.index = hoverIndex;
 		},
