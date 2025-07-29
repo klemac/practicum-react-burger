@@ -5,7 +5,7 @@ import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-component
 
 export const OrderDetails = (): JSX.Element => {
 	const { order, orderRequest, orderError } = useSelector(
-		(store: any) => store.order
+		(store) => store.order
 	);
 
 	return (

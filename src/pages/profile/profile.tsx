@@ -35,7 +35,7 @@ export const Profile = (): JSX.Element => {
 						</NavLink>
 						<NavLink
 							to='#'
-							onClick={() => dispatch(logout() as any)}
+							onClick={() => dispatch(logout())}
 							className='text text_type_main-medium text_color_inactive'>
 							Выход
 						</NavLink>

@@ -10,8 +10,8 @@ export const ProtectedRoute = ({
 	onlyPublic = false,
 	component,
 }: TProtectedRouteProps): React.ReactNode => {
-	const isAuthChecked = useSelector((store: any) => store.user.isAuthChecked);
-	const user = useSelector((store: any) => store.user.user);
+	const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
+	const user = useSelector((store) => store.user.user);
 	const location = useLocation();
 
 	if (!isAuthChecked) {

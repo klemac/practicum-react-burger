@@ -7,7 +7,7 @@ import IngredientsGroup from './ingredients-group/ingredients-group';
 import { TIngredientItemType } from '../../utils/types';
 
 const BurgerIngredients = (): JSX.Element => {
-	const { data } = useSelector((store: any) => store.ingredients);
+	const { data } = useSelector((store) => store.ingredients);
 	const [activeTab, setActiveTab] = useState<string>('buns');
 
 	const containerRef = useRef<HTMLUListElement | null>(null);

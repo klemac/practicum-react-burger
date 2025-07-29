@@ -23,13 +23,11 @@ import {
 
 const BurgerConstructor = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const { bun, ingredients } = useSelector(
-		(store: any) => store.burgerConstructor
-	);
+	const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
 	const { order, orderRequest, orderError } = useSelector(
-		(store: any) => store.order
+		(store) => store.order
 	);
-	const { user } = useSelector((store: any) => store.user);
+	const { user } = useSelector((store) => store.user);
 
 	const navigate = useNavigate();
 	const navigateToLogin = () => navigate('/login');
@@ -53,8 +51,8 @@ const BurgerConstructor = (): JSX.Element => {
 	}, [bun, ingredients]);
 
 	const placeAnOrder = () => {
-		user
-			? dispatch(createOrder({ bun, ingredients }) as any)
+		user && bun
+			? dispatch(createOrder({ bun, ingredients }))
 			: navigateToLogin();
 	};
 
@@ -64,7 +62,7 @@ const BurgerConstructor = (): JSX.Element => {
 		useDrop<TIngredientItemType, unknown, TDropCollectedIngredientProps>(
 			() => ({
 				accept: 'ItemDragDrop',
-				drop: (item) => dispatch(addItem(item) as any),
+				drop: (item) => dispatch(addItem(item)),
 				collect: (monitor) => ({
 					canDropIngredient:
 						monitor.getItem()?.type !== 'bun' && monitor.canDrop(),
@@ -106,12 +104,12 @@ const BurgerConstructor = (): JSX.Element => {
 				)}
 				{ingredients.length > 0 ? (
 					<ul className={`${styles.order__list} custom__scrollbar`}>
-						{ingredients.map((element: TIngredientItemType, index: string) => (
+						{ingredients.map((element, index) => (
 							<ConstructorItem
 								element={element}
 								key={element.key}
 								id={element.key ?? ''}
-								index={index}
+								index={index.toString()}
 							/>
 						))}
 					</ul>

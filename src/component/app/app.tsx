@@ -35,11 +35,11 @@ const App = (): JSX.Element => {
 	};
 
 	useEffect(() => {
-		dispatch(getIngredients() as any);
+		dispatch(getIngredients());
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(checkUserAuth() as any);
+		dispatch(checkUserAuth());
 	}, []);
 
 	return (

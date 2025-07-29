@@ -23,7 +23,7 @@ export const ProfileDetails = (): JSX.Element => {
 
 	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(updateUser(formData) as any);
+		dispatch(updateUser(formData));
 	};
 
 	const inputRef = useRef<HTMLInputElement>(null);

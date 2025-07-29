@@ -59,7 +59,7 @@ const ConstructorItem = ({
 			if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
 				return;
 			}
-			dispatch(moveItem(Number(dragIndex), Number(hoverIndex)) as any);
+			dispatch(moveItem(Number(dragIndex), Number(hoverIndex)));
 
 			item.index = hoverIndex;
 		},

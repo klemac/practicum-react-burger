@@ -23,7 +23,7 @@ const feedMiddleware = socketMiddleware<FeedActions, unknown>({
 	onOpen: wsOpen,
 	onClose: wsClose,
 	onError: wsError,
-	onMessage: wsMessage as any, // Не смог побороть ошибку здесь
+	onMessage: wsMessage as any, // Не смог побороть ошибку здесь...
 });
 
 const composeEnhancers =

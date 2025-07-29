@@ -27,7 +27,7 @@ export const Login = (): JSX.Element => {
 
 	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(login(formData) as any);
+		dispatch(login(formData));
 	};
 
 	return (
