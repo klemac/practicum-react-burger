@@ -1,4 +1,11 @@
 import {
+	TAuthUserResponse,
+	TCreateOrderResponse,
+	TIngredientsResponse,
+	TLogoutResponse,
+	TOrder,
+	TRegisterResponse,
+	TResetPasswordResponse,
 	TToken,
 	TUser,
 	TUserLogin,
@@ -8,6 +15,7 @@ import {
 } from '../utils/types';
 
 const API_URL = 'https://norma.nomoreparties.space/api';
+export const WSS_API_URL = 'wss://norma.nomoreparties.space/orders';
 
 const checkReponse = <T>(res: Response): Promise<T> => {
 	return res.ok
@@ -22,8 +30,8 @@ const fetchWithoutRefresh = <T>(
 	return fetch(`${API_URL + endpoint}`, options).then(checkReponse<T>);
 };
 
-export const getIngredientsDataRequest = () =>
-	fetchWithoutRefresh('/ingredients');
+export const getIngredientsDataRequest  = () =>
+	fetchWithoutRefresh<TIngredientsResponse>('/ingredients');
 
 export const refreshToken = () => {
 	return fetch(`${API_URL}/auth/token`, {
@@ -46,93 +54,100 @@ export const refreshToken = () => {
 		});
 };
 
-const fetchWithRefresh = async (endpoint: string, options: RequestInit) => {
+const fetchWithRefresh = async <T>(endpoint: string, options: RequestInit) => {
 	const url = `${API_URL + endpoint}`;
 	try {
 		const res = await fetch(url, options);
-		return await checkReponse(res);
-	} catch (error) {
-		if (error instanceof Error && error.message === 'jwt expired') {
+		return await checkReponse<T>(res);
+	} catch (err) {
+		if (err instanceof Error && err.message === 'jwt expired') {
 			const refreshData = await refreshToken();
-			if (options.headers) {
+			if (options?.headers) {
 				(options.headers as Record<string, string>).authorization =
 					refreshData.accessToken;
 			}
 			const res = await fetch(url, options);
-			return await checkReponse(res);
+			return await checkReponse<T>(res);
 		} else {
-			return Promise.reject(error);
+			return Promise.reject(err);
 		}
 	}
 };
 
-export const createOrderRequest = (ingredientsIds: Array<string>) => {
-	return fetchWithRefresh('/orders', {
+export const createOrderRequest = (ingredientsID: Array<string>) => {
+	return fetchWithRefresh<TCreateOrderResponse>('/orders', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('accessToken') || '',
-		} as Record<string, string>,
+			Authorization: localStorage.getItem('accessToken'),
+		} as Record<string, string>, 
 		body: JSON.stringify({
-			ingredients: ingredientsIds,
+			ingredients: ingredientsID,
 		}),
 	});
 };
+
+export const getOrderByNumber = (number: string) =>
+	fetchWithoutRefresh<TOrder>('/orders/' + number);
 
 export const passwordForgot = ({ email }: TUserPasswordReset) => {
-	return fetchWithoutRefresh('/password-reset', {
+	// non-store request
+	return fetchWithoutRefresh<TResetPasswordResponse>('/password-reset', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			email,
+			email: email,
 		}),
 	});
 };
 
-export const passwordReset = ({ password, code }: TUserPasswordResetCode) => {
-	return fetchWithoutRefresh('/password-reset/reset', {
+export const passwordReset = ({
+	password,
+	code,
+}: TUserPasswordResetCode) => {
+	return fetchWithoutRefresh<undefined>('/password-reset/reset', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			password,
+			password: password,
 			token: code,
 		}),
 	});
 };
 
 export const register = ({ email, password, name }: TUserRegister) => {
-	return fetchWithoutRefresh('/auth/register', {
+	return fetchWithoutRefresh<TRegisterResponse>('/auth/register', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			email,
-			password,
-			name,
+			email: email,
+			password: password,
+			name: name,
 		}),
 	});
 };
 
 export const login = ({ email, password }: TUserLogin) => {
-	return fetchWithoutRefresh('/auth/login', {
+	return fetchWithoutRefresh<TRegisterResponse>('/auth/login', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			email,
-			password,
+			email: email,
+			password: password,
 		}),
 	});
 };
 
 export const logout = () => {
-	return fetchWithoutRefresh('/auth/logout', {
+	return fetchWithoutRefresh<TLogoutResponse>('/auth/logout', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -144,21 +159,21 @@ export const logout = () => {
 };
 
 export const getUser = () => {
-	return fetchWithRefresh('/auth/user', {
+	return fetchWithRefresh<TAuthUserResponse>('/auth/user', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('accessToken') || '',
+			Authorization: localStorage.getItem('accessToken'),
 		} as Record<string, string>,
 	});
 };
 
 export const updateUser = (user: TUser) => {
-	return fetchWithRefresh('/auth/user', {
+	return fetchWithRefresh<TAuthUserResponse>('/auth/user', {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('accessToken') || '',
+			Authorization: localStorage.getItem('accessToken'),
 		} as Record<string, string>,
 		body: JSON.stringify(user),
 	});

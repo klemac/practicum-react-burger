@@ -1,20 +1,29 @@
+import { TIngredientItemType } from '../../utils/types';
 import {
 	ADD_ITEM,
 	DELETE_ITEM,
-	CLEAR_ITEMS,
 	MOVE_ITEM,
+	CLEAR_ITEMS,
+	TBurgerItemsActions,
 } from '../actions/burger-constructor';
 
-const initialState = {
+type TBurgerItemsState = {
+	bun: TIngredientItemType | null,
+	ingredients: Array<TIngredientItemType>,
+};
+
+const initialState: TBurgerItemsState = {
 	bun: null,
 	ingredients: [],
 };
 
-export const burgerConstructorReducer = (state = initialState, action) => {
-	const isBun = action?.item?.type === 'bun';
-
+export const burgerConstructorReducer = (
+	state = initialState,
+	action: TBurgerItemsActions
+): TBurgerItemsState => {
 	switch (action.type) {
 		case ADD_ITEM:
+			let isBun = action?.item?.type === 'bun';
 			return {
 				...state,
 				bun: isBun ? action.item : state.bun,
@@ -23,25 +32,26 @@ export const burgerConstructorReducer = (state = initialState, action) => {
 					: [...state.ingredients, action.item],
 			};
 		case DELETE_ITEM:
+			let isBunDelete = action?.item?.type === 'bun';
 			return {
 				...state,
-				bun: isBun ? null : state.bun,
-				ingredients: isBun
+				bun: isBunDelete ? null : state.bun,
+				ingredients: isBunDelete
 					? state.ingredients
 					: state.ingredients.filter(
 							(ingredient) => ingredient.key !== action.item.key
 					  ),
 			};
 		case MOVE_ITEM:
-			const ingredients2 = [...state.ingredients];
-			ingredients2.splice(
+			const ingredientsTmp = [...state.ingredients];
+			ingredientsTmp.splice(
 				action.toIndex,
 				0,
-				ingredients2.splice(action.fromIndex, 1)[0]
+				ingredientsTmp.splice(action.fromIndex, 1)[0]
 			);
 			return {
 				...state,
-				ingredients: ingredients2,
+				ingredients: ingredientsTmp,
 			};
 		case CLEAR_ITEMS:
 			return {

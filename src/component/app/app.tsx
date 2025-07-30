@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
@@ -17,6 +17,8 @@ import { PrivateRoute, PublicRoute } from '../protected-route';
 import { ProfileDetails } from '../profile-details/profile-details';
 import { Orders } from '../orders/orders';
 import { IngredientDetails } from '../burger-ingredients/ingredient-details/ingredient-details';
+import { Feed } from '../../pages/feed/feed';
+import { OrderInfo } from '../../component/order-info/order-info';
 
 const App = (): JSX.Element => {
 	const dispatch = useDispatch();
@@ -33,11 +35,11 @@ const App = (): JSX.Element => {
 	};
 
 	useEffect(() => {
-		dispatch(getIngredients() as any);
+		dispatch(getIngredients());
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(checkUserAuth() as any);
+		dispatch(checkUserAuth());
 	}, []);
 
 	return (
@@ -76,16 +78,23 @@ const App = (): JSX.Element => {
 								element={<PublicRoute component={<ResetPassword />} />}
 							/>
 
+							<Route path='/feed' element={<Feed />} />
+							<Route path='/feed/:number' element={<OrderInfo />} />
+
 							<Route
 								path='profile'
 								element={<PrivateRoute component={<Profile />} />}>
 								<Route
-									path='/profile'
+									path='/profile/'
 									element={<PrivateRoute component={<ProfileDetails />} />}
 								/>
 								<Route
-									path='orders'
+									path='/profile/orders'
 									element={<PrivateRoute component={<Orders />} />}
+								/>
+								<Route
+									path='/profile/orders/:number'
+									element={<PrivateRoute component={<OrderInfo />} />}
 								/>
 							</Route>
 
@@ -101,6 +110,22 @@ const App = (): JSX.Element => {
 											header={'Детали ингредиента'}
 											onClose={handleModalClose}>
 											<IngredientDetails />
+										</Modal>
+									}
+								/>
+								<Route
+									path='/feed/:number'
+									element={
+										<Modal header='' onClose={handleModalClose}>
+											<OrderInfo />
+										</Modal>
+									}
+								/>
+								<Route
+									path='/profile/orders/:number'
+									element={
+										<Modal header='' onClose={handleModalClose}>
+											<OrderInfo />
 										</Modal>
 									}
 								/>

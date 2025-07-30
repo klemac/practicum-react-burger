@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import '../../styles.css';
@@ -7,7 +7,7 @@ import IngredientsGroup from './ingredients-group/ingredients-group';
 import { TIngredientItemType } from '../../utils/types';
 
 const BurgerIngredients = (): JSX.Element => {
-	const { data } = useSelector((store: any) => store.ingredients);
+	const { data } = useSelector((store) => store.ingredients);
 	const [activeTab, setActiveTab] = useState<string>('buns');
 
 	const containerRef = useRef<HTMLUListElement | null>(null);

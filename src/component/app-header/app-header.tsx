@@ -7,10 +7,10 @@ import {
 	ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 
 const AppHeader = (): JSX.Element => {
-	const user = useSelector((store: any) => store.user.user);
+	const user = useSelector((store) => store.user.user);
 	const getButtonColor = (isActive: boolean) =>
 		isActive ? 'primary' : 'secondary';
 	const getTextColor = (isActive: boolean) =>

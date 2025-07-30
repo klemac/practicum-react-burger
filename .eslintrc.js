@@ -10,12 +10,12 @@ module.exports = {
 			version: 'detect',
 		},
 		'import/parsers': {
-			'@typescript-eslint/parser': ['.ts', '.tsx',],
+			'@typescript-eslint/parser': ['.ts', '.tsx'],
 		},
 		'import/resolver': {
 			typescript: {
 				alwaysTryTypes: true,
-				project: "./tsconfig.json",
+				project: './tsconfig.json',
 			},
 		},
 	},
@@ -41,5 +41,6 @@ module.exports = {
 		'react/jsx-uses-react': 'off',
 		'react/react-in-jsx-scope': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
+		'react-refresh/only-export-components': [{ allowConstantExport: true }],
 	},
 };

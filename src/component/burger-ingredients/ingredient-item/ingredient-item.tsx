@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../services/hooks';
 import { useDrag } from 'react-dnd';
 import styles from './ingredient-item.module.css';
 import {
@@ -12,9 +12,7 @@ import { TIngredientItemType } from '../../../utils/types';
 type TIngredientItemProps = { item: TIngredientItemType };
 
 const IngredientItem = ({ item }: TIngredientItemProps): JSX.Element => {
-	const { bun, ingredients } = useSelector(
-		(store: any) => store.burgerConstructor
-	);
+	const { bun, ingredients } = useSelector((store) => store.burgerConstructor);
 
 	const location = useLocation();
 

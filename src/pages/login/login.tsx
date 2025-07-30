@@ -1,7 +1,7 @@
 import React, { useState, useRef, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import {
 	Button,
 	Input,
@@ -27,7 +27,7 @@ export const Login = (): JSX.Element => {
 
 	const formSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(login(formData) as any);
+		dispatch(login(formData));
 	};
 
 	return (

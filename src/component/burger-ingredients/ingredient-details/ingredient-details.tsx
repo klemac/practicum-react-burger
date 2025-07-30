@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../services/hooks';
 import styles from './ingredient-details.module.css';
 import { useLocation, useParams } from 'react-router-dom';
 
