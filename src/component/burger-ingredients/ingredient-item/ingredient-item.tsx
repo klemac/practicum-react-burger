@@ -44,7 +44,8 @@ const IngredientItem = ({ item }: TIngredientItemProps): JSX.Element => {
 			<div
 				className={`${styles.item__body} ${isDragging && styles.item__drag}`}
 				aria-hidden='true'
-				ref={drag}>
+				ref={drag}
+				data-test='ingredientItem'>
 				<Counter count={ingredientCount} size='default' />
 				<img
 					className={`${styles.item__image}`}

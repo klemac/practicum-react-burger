@@ -33,16 +33,20 @@ export const Modal = ({
 
 	return ReactDOM.createPortal(
 		<>
-			<div className={`${styles.modal__body} p-10`}>
+			<div
+				className={`${styles.modal__body} p-10`}
+				data-testid='modalContainer'>
 				<div className={styles.modal__header}>
 					<p className={`${styles.header__text} text text_type_main-large`}>
 						{header}
 					</p>
-					<CloseIcon
-						type='primary'
-						onClick={onClose}
-						className={styles.modal__close}
-					/>
+					<button data-testid='modalCloseButton'>
+						<CloseIcon
+							type='primary'
+							onClick={onClose}
+							className={styles.modal__close}
+						/>
+					</button>
 				</div>
 				{children}
 			</div>

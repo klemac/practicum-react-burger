@@ -13,7 +13,7 @@ type TCardInitialState = {
 	orderError: null | boolean | string;
 };
 
-const initialState: TCardInitialState = {
+export const initialState: TCardInitialState = {
 	order: null,
 	orderRequest: false,
 	orderError: null,
