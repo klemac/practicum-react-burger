@@ -1,9 +1,0 @@
-.order__element {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-
-.dragging__element {
-	opacity: 0.5;
-}
