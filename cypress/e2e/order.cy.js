@@ -3,12 +3,19 @@ import { selectors, userData, API_URL } from '../support/constants';
 describe('Placing an order after login', () => {
 	beforeEach(() => {
 		cy.prepare();
-		cy.visit('/login');
+		cy.visit('/#/login');
 
-		cy.intercept('POST', `${API_URL}/login`, { fixture: 'user' });
+		cy.intercept('POST', `${API_URL}/auth/login`, { fixture: 'user' });
+		
+		window.localStorage.setItem(
+			"refreshToken",
+			JSON.stringify("test-refreshToken")
+		);
+		cy.setCookie('accessToken', 'test-accessToken')
 
 		cy.get('[data-testid=email_input]').type(`${userData.email}`);
 		cy.get('[data-testid=password_input]').type(`${userData.password}{enter}`);
+
 	});
 
 	it('should create order', () => {

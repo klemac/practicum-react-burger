@@ -1,7 +1,4 @@
 {
-	"success": true,
-	"accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODY1NzI0ZDVjYTMwMDAxY2ZmYzNlMSIsImlhdCI6MTc1Mzk5OTQ4NCwiZXhwIjoxNzU0MDAwNjg0fQ.1XNBslaTVSJDnY3c8u_HK4NhiJaoOeteL6W2BkCwiZE",
-	"refreshToken": "383a0764f3305a354749b3c0d1944c888baa0bbdc9edcbae6a5f500ce8075c6f9e8235988f7a8570",
 	"user": {
 		"email": "klimkonnov2004@mail.ru",
 		"name": "Клим"

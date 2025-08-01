@@ -10,7 +10,7 @@ import {
 import { OrderDetails } from './order-details/order-details';
 import { Modal } from '../modal/modal';
 import ConstructorItem from './constructor-item/constructor-item';
-import { CLEAR_ORDER, createOrder } from '../../services/actions/order-details';
+import { CLEAR_ORDER, createOrder, CLEAR_ORDER_ERROR } from '../../services/actions/order-details';
 import {
 	CLEAR_ITEMS,
 	addItem,
@@ -35,6 +35,7 @@ const BurgerConstructor = (): JSX.Element => {
 	const handleCloseModal = () => {
 		dispatch({ type: CLEAR_ORDER });
 		dispatch({ type: CLEAR_ITEMS });
+		dispatch({ type: CLEAR_ORDER_ERROR });
 	};
 
 	const price = useMemo(() => {
