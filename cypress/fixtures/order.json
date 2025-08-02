@@ -1,0 +1,21 @@
+{
+	"success": true,
+	"orders": [
+		{
+			"_id": "6886580ed5ca30001cffc3e6",
+			"ingredients": [
+				"643d69a5c3f7b9001cfa093c",
+				"643d69a5c3f7b9001cfa0943",
+				"643d69a5c3f7b9001cfa0945",
+				"643d69a5c3f7b9001cfa093c"
+			],
+			"owner": "68865724d5ca30001cffc3e1",
+			"status": "done",
+			"name": "Краторный space антарианский бургер",
+			"createdAt": "2025-07-27T16:47:10.603Z",
+			"updatedAt": "2025-07-27T16:47:11.346Z",
+			"number": 85191,
+			"__v": 0
+		}
+	]
+}

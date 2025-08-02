@@ -10,7 +10,7 @@ import {
 import { OrderDetails } from './order-details/order-details';
 import { Modal } from '../modal/modal';
 import ConstructorItem from './constructor-item/constructor-item';
-import { CLEAR_ORDER, createOrder } from '../../services/actions/order-details';
+import { CLEAR_ORDER, createOrder, CLEAR_ORDER_ERROR } from '../../services/actions/order-details';
 import {
 	CLEAR_ITEMS,
 	addItem,
@@ -35,6 +35,7 @@ const BurgerConstructor = (): JSX.Element => {
 	const handleCloseModal = () => {
 		dispatch({ type: CLEAR_ORDER });
 		dispatch({ type: CLEAR_ITEMS });
+		dispatch({ type: CLEAR_ORDER_ERROR });
 	};
 
 	const price = useMemo(() => {
@@ -84,16 +85,19 @@ const BurgerConstructor = (): JSX.Element => {
 			)}
 			<section
 				className={`${styles.burger__constructor} pt-25 pb-10`}
-				ref={drop}>
+				ref={drop}
+				data-test='constructorContainer'>
 				{bun ? (
-					<ConstructorElement
-						type='top'
-						isLocked={true}
-						text={`${bun.name} (верх)`}
-						price={bun.price}
-						thumbnail={bun.image}
-						extraClass={`${styles.startend__element}`}
-					/>
+					<div data-test='constructorBunTop'>
+						<ConstructorElement
+							type='top'
+							isLocked={true}
+							text={`${bun.name} (верх)`}
+							price={bun.price}
+							thumbnail={bun.image}
+							extraClass={`${styles.startend__element}`}
+						/>
+					</div>
 				) : (
 					<div
 						className={`${styles.emptyburger__top} ${
@@ -103,7 +107,9 @@ const BurgerConstructor = (): JSX.Element => {
 					</div>
 				)}
 				{ingredients.length > 0 ? (
-					<ul className={`${styles.order__list} custom__scrollbar`}>
+					<ul
+						className={`${styles.order__list} custom__scrollbar`}
+						data-test='constructorInnerItems'>
 						{ingredients.map((element, index) => (
 							<ConstructorItem
 								element={element}
@@ -126,14 +132,16 @@ const BurgerConstructor = (): JSX.Element => {
 					</div>
 				)}
 				{bun ? (
-					<ConstructorElement
-						type='bottom'
-						isLocked={true}
-						text={`${bun.name} (низ)`}
-						price={bun.price}
-						thumbnail={bun.image}
-						extraClass={`${styles.startend__element}`}
-					/>
+					<div data-test='constructorBunBottom'>
+						<ConstructorElement
+							type='bottom'
+							isLocked={true}
+							text={`${bun.name} (низ)`}
+							price={bun.price}
+							thumbnail={bun.image}
+							extraClass={`${styles.startend__element}`}
+						/>
+					</div>
 				) : (
 					<div
 						className={`${styles.emptyburger__bottom} ${
@@ -152,7 +160,8 @@ const BurgerConstructor = (): JSX.Element => {
 						type='primary'
 						size='medium'
 						disabled={ingredients.length === 0 || !bun}
-						onClick={placeAnOrder}>
+						onClick={placeAnOrder}
+						data-test='submitOrderButton'>
 						Оформить заказ
 					</Button>
 				</div>

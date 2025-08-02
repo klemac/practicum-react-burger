@@ -10,7 +10,8 @@ const ModalOverlay = ({ onClose }: TModalOverlayProps): JSX.Element => {
 		<div
 			onClick={onClose}
 			className={styles.modal__overlay}
-			aria-hidden='true'></div>
+			aria-hidden='true'
+			data-testid='modalOverlay'></div>
 	);
 };
 

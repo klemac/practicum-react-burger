@@ -19,7 +19,9 @@ export const OrderDetails = (): JSX.Element => {
 				</div>
 			) : (
 				<div className={`${styles.details__body} pb-20 pt-10`}>
-					<p className='text text_type_digits-large'>{order}</p>
+					<p className='text text_type_digits-large' data-test='orderNumber'>
+						{order}
+					</p>
 					<p className='text text_type_main-medium pt-8'>
 						идентификатор заказа
 					</p>
